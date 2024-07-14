@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetPostQuery } from './queries/get-post.query';
-import { PostViewDTO } from './dtos/post-view.dto';
 import { PostCreateDTO } from './dtos/post-create.dto';
 import { CreatePostCommand } from './commands/create-post.command';
 import { PostResponse } from './responses/post.response';
