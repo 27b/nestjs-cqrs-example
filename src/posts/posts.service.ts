@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PostViewDTO } from './dtos/post-view.dto';
 import { PostCreateDTO } from './dtos/post-create.dto';
 import { Post } from './entities/post.entity';
+import { PostUpdateDTO } from './dtos/post-update.dto';
 
 @Injectable()
 export class PostsService {
@@ -30,6 +30,18 @@ export class PostsService {
         let { title, content } = data;
 
         let post = this.postRepository.create({ title, content });
+
+        return await this.postRepository.save(post);
+    }
+
+    async update(id: number, data: PostUpdateDTO): Promise<Post | null> {
+        let post = await this.findById(id);
+
+        if (!post) throw new NotFoundException();
+
+        // TODO: Use object assign or a mapper to update values.
+        if (data.title) post.title = data.title;
+        if (data.content) post.content = data.content;
 
         return await this.postRepository.save(post);
     }

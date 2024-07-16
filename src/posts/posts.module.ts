@@ -7,6 +7,7 @@ import { CreatePostHandler } from './handlers/create-post.handler';
 import { Post } from './entities/post.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GetPostListHandler } from './handlers/get-post-list.handler';
+import { UpdatePostHandler } from './handlers/update-post.handler';
 
 @Module({
     imports: [CqrsModule, TypeOrmModule.forFeature([Post])],
@@ -16,6 +17,7 @@ import { GetPostListHandler } from './handlers/get-post-list.handler';
         GetPostListHandler,
         GetPostHandler,
         CreatePostHandler,
+        UpdatePostHandler,
     ],
 })
 export class PostsModule {}

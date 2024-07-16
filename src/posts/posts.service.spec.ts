@@ -3,6 +3,7 @@ import { PostsService } from './posts.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Post } from './entities/post.entity';
 import { PostCreateDTO } from './dtos/post-create.dto';
+import { PostUpdateDTO } from './dtos/post-update.dto';
 
 describe('PostService', () => {
     let service: PostsService;
@@ -56,5 +57,17 @@ describe('PostService', () => {
 
         expect(posts[0].id).toBe(1);
         expect(posts[1].id).toBe(2);
+    });
+
+    it('update post', async () => {
+        await service.create(new PostCreateDTO('post 1', 'lorem ipsum...'));
+
+        let update = new PostUpdateDTO();
+
+        update.title = 'hello world';
+
+        let result = await service.update(1, update);
+
+        expect(result.title).toBe(update.title);
     });
 });
